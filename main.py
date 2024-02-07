@@ -30,18 +30,42 @@ data = {
 
 @app.command()
 def main():
-    startNew = typer.confirm("Start a new application?")
-    data['name'] = (Prompt.ask("What's your name?")).capitalize()
-    data['role'] = typer.prompt("What role are you applying for?")
 
-    html = weasyprint.HTML('./resume2.html')
-    html.write_pdf('./test.pdf')
+    data = {
+    "FullName": "mehdi",
+    "Role": "Software Engineer"
+    }
     
-    print("\n")
-    print(f"[bold red]Hello[/bold red] {data['name']}")
-    print(f"You are applying for the role of {data['role']}")
+    startNew = typer.confirm("Start a new application?")
+    data['FullName'] = (Prompt.ask("What's your name?")).capitalize()
+    data['Role'] = typer.prompt("What role are you applying for?")
 
-    storeDict(data, f"{data['name']}.json")
+    print("\n")
+    print(f"[bold red]Hello[/bold red] {data['FullName']}")
+    print(f"You are applying for the role of {data['Role']}")
+
+    storeDict(data, f"{data['FullName']}.json")
+
+    # Read the JSON file
+    with open(f"./data/{data['FullName']}.json") as json_file:
+        data = json.load(json_file)
+
+    # Read the HTML template
+    with open('./Template.html') as template_file:
+        template_content = template_file.read()
+
+    # Replace placeholder values in the template
+    for key, value in data.items():
+        placeholder = '{{' + key + '}}'
+        template_content = template_content.replace(placeholder, str(value))
+
+    # Write the updated HTML content to a new file
+    with open('output.html', 'w') as output_file:
+        output_file.write(template_content)
+
+    # Convert HTML to PDF
+    weasyprint.HTML('output.html').write_pdf('output.pdf')
+    os.remove('output.html')
 
 if __name__ == "__main__":
     app()
