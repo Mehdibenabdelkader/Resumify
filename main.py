@@ -134,23 +134,39 @@ def main():
         print(f"You are applying for the role of {data['Role']}")
 
         storeDict(data, f"{data['FullName']}.json")
+        FileName = data['FullName']
+    
+    else:
+        Files = os.listdir("./data")
+        print("\n")
+        print(f"[bold green]Files in repository :[/bold green]")
+        for file in Files:
+            print(file)
 
-        # Read the JSON file
-        with open(f"./data/{data['FullName']}.json") as json_file:
-            data = json.load(json_file)
+        print("\n")
+        FileName = (Prompt.ask("Pick a file")).capitalize()
+        
+        # Check if the JSON file exists
+        json_file_path = f"./data/{FileName}.json"
+        if not os.path.exists(json_file_path):
+            raise FileNotFoundError(f"JSON file '{json_file_path}' does not exist.")
 
-        # Render the template - make this dynamic
-        template_path = './Template.html'  # Path to your Jinja2 template file
-        rendered_template = render_template(template_path, data)
+    # Read the JSON file
+    with open(f"./data/{FileName}.json") as json_file:
+        data = json.load(json_file)
 
-        # Output or save the rendered template as needed
-        output_file = 'output.html'  # Path to the output HTML file
-        with open(output_file, 'w') as f:
-            f.write(rendered_template)
+    # Render the template - make this dynamic
+    template_path = './Template.html'  # Path to your Jinja2 template file
+    rendered_template = render_template(template_path, data)
 
-        # Convert HTML to PDF and remove the temporary files
-        weasyprint.HTML('output.html').write_pdf('output.pdf')
-        os.remove('output.html')
+    # Output or save the rendered template as needed
+    output_file = 'output.html'  # Path to the output HTML file
+    with open(output_file, 'w') as f:
+        f.write(rendered_template)
+
+    # Convert HTML to PDF and remove the temporary files
+    weasyprint.HTML('output.html').write_pdf('output.pdf')
+    os.remove('output.html')
 
 if __name__ == "__main__":
     app()
