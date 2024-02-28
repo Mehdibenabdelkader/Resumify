@@ -91,9 +91,9 @@ def main():
         Experiences = []
         while newExperience:
             Experience = {}
-            Experience[f'Position'] = typer.prompt("What language do you speak?")
+            Experience[f'Position'] = typer.prompt("What position were you in?")
             Experience[f'Year'] = typer.prompt("What year did you start?")
-            Experience[f'Company'] = typer.prompt("What's your level?")
+            Experience[f'Company'] = typer.prompt("In what Company?")
             Experience[f'Description'] = typer.prompt("Enter a short description of your work")
             Experiences.append(Experience)
             newExperience = typer.confirm("Do you want to add a language?")
