@@ -52,7 +52,7 @@ def main():
             degrees.append(degree)
             newDegree = typer.confirm("Do you have another degree?")
 
-        data["degrees"] = degrees
+        data["Degrees"] = degrees
 
         print("\n")
         print("This section is about your skills and tools")
@@ -66,7 +66,7 @@ def main():
             skills.append(skill)
             newSkill = typer.confirm("Do you want to add a skill?")
 
-        data["skills"] = skills
+        data["Skills"] = skills
 
         print("\n")
         print("This section is about your languages")
@@ -81,7 +81,7 @@ def main():
             Languages.append(Language)
             newLanguage = typer.confirm("Do you want to add a language?")
 
-        data["languages"] = Languages
+        data["Languages"] = Languages
 
 
         print("\n")
@@ -98,7 +98,7 @@ def main():
             Experiences.append(Experience)
             newExperience = typer.confirm("Do you want to add a language?")
 
-        data["Experience"] = Experiences
+        data["Experiences"] = Experiences
 
 
         print("\n")
@@ -109,11 +109,11 @@ def main():
         while newCertification:
             Certification = {}
             Certification[f'Name'] = typer.prompt("What's the name of the certification?")
-            Certification[f'Plateform'] = typer.prompt("What's the plateform?")
+            Certification[f'Platform'] = typer.prompt("What's the plateform?")
             Certifications.append(Certification)
             newCertification = typer.confirm("Do you want to add a certification?")
 
-        data["Certification"] = Certifications
+        data["Certifications"] = Certifications
             
         print("\n")
         print("This section is about your projects")
@@ -127,7 +127,7 @@ def main():
             Projects.append(Project)
             newProject = typer.confirm("Do you want to add a project?")
 
-        data["Project"] = Projects
+        data["Projects"] = Projects
 
         print("\n")
         print(f"[bold red]Hello[/bold red] {data['FullName']}")
@@ -139,7 +139,7 @@ def main():
         with open(f"./data/{data['FullName']}.json") as json_file:
             data = json.load(json_file)
 
-        # Render the template
+        # Render the template - make this dynamic
         template_path = './Template.html'  # Path to your Jinja2 template file
         rendered_template = render_template(template_path, data)
 
