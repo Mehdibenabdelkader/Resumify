@@ -5,7 +5,6 @@ import json
 import weasyprint
 import os
 from DataLoading import *
-from SnippetModifier import *
 import shutil
 from jinja2 import Environment, FileSystemLoader
 
