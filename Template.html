@@ -7,7 +7,7 @@
 
     :root{
       --main-highlight-color:#1c1c1c;
-      --header-background-color: #f5f5f5;
+      --header-background-color: #ffffff;
       --secondary-highlight-color:#ff9e16;
       --list-point-color:#C2C6CA;
       --text-color:#303E48;
@@ -26,10 +26,23 @@
       size:A4;
       margin:5cm 1.3cm 1cm 8cm;
       
-      @top-left-corner{
-        content: url(img/test.jpg);
+      @top-left-corner {
+        content:element(image);
         background-color: var(--secondary-highlight-color);
+        position: absolute;
+        width: 150px; /* Set width of the image */
+        height: 150px; /* Set height of the image */
+        background-image: url('{{ ImgUrl }}'); /* Add your image URL here */
+        background-size: cover; /* Adjust the image size */
+        background-position: center; /* Center the image */
+        margin-top: 200px; /* Add padding around the image */
+        margin-right: 0px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
+    
       
       @top-left{
         content:element(header);
