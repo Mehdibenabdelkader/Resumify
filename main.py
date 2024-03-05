@@ -128,13 +128,21 @@ def main():
 
         data["Projects"] = Projects
 
+        imageSupport = typer.confirm("Add a picture?")
+        
+        if imageSupport:
+            image = typer.prompt("Enter the path to your image")
+            os.makedirs('img', exist_ok=True)
+            shutil.copy(image, f"./img/{data['FullName']}.jpg")
+            data["ImgUrl"] = f"./img/{data['FullName']}.jpg"
+
         print("\n")
         print(f"[bold red]Hello[/bold red] {data['FullName']}")
         print(f"You are applying for the role of {data['Role']}")
 
         storeDict(data, f"{data['FullName']}.json")
         FileName = data['FullName']
-    
+        
     else:
         Files = os.listdir("./data")
         print("\n")
@@ -149,6 +157,8 @@ def main():
         json_file_path = f"./data/{FileName}.json"
         if not os.path.exists(json_file_path):
             raise FileNotFoundError(f"JSON file '{json_file_path}' does not exist.")
+
+
 
     # Read the JSON file
     with open(f"./data/{FileName}.json") as json_file:
